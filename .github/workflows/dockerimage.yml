@@ -16,7 +16,7 @@ jobs:
     - uses: azure/docker-login@v1
       with:
         login-server: siteserver.azurecr.io
-        username: ${{ secrets.REGISTRY_USERNAME }}
+        username: siteserver
         password: ${{ secrets.REGISTRY_PASSWORD }}
     - run: |
         docker build . -t siteserver.azurecr.io/wotmudscriptssite
