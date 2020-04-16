@@ -13,12 +13,12 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-    - uses: actions/checkout@v2
-    - name: Build the Docker image
-      run: docker build . --file Dockerfile --tag wotmudscriptssite
-      working-directory: ./WotmudScriptSite
+    - uses: azure/docker-login@v1
+      with:
+        login-server: siteserver.azurecr.io
+        username: ${{ secrets.REGISTRY_USERNAME }}
+        password: ${{ secrets.REGISTRY_PASSWORD }}
 
-    - uses: actions/checkout@v2
-    - name: Tag the Docker image
-      run: docker tag wotmudscriptssite siteserver.azurecr.io/wotmudscriptssite
-      working-directory: ./WotmudScriptSite
+    - run: |
+        docker build . -t siteserver.azurecr.io/wotmudscriptssite
+        docker push siteserver.azurecr.io/wotmudscriptssite
