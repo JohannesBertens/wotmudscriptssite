@@ -19,5 +19,6 @@ jobs:
         username: siteserver
         password: ${{ secrets.REGISTRY_PASSWORD }}
           
+    - uses: azure/docker-login@v1
     - run: docker build . -t siteserver.azurecr.io/wotmudscriptssite && docker push siteserver.azurecr.io/wotmudscriptssite
       working-directory: ./WotmudScriptSite
