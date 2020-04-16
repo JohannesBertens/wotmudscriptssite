@@ -15,7 +15,7 @@ jobs:
     steps:
     - uses: actions/checkout@v2
     - name: Build the Docker image
-    - run: docker build . --file Dockerfile -t siteserver.azurecr.io/wotmudscriptssite
+      run: docker build . --file Dockerfile -t siteserver.azurecr.io/wotmudscriptssite
       working-directory: ./WotmudScriptSite
       
     - uses: azure/docker-login@v1
