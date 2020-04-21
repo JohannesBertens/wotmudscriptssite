@@ -2,6 +2,7 @@
 @using site.Data
 @inject RentItemsService RentItemsService
 @inject IJSRuntime JSRuntime
+@implements IDisposable
 
 <h1>Storage info online</h1>
 
@@ -39,11 +40,15 @@ else
     protected override async Task OnInitializedAsync()
     {
         rentItems = await RentItemsService.GetRentItemsAsync("Asandra");
-
     }
 
     protected override async Task OnAfterRenderAsync(bool firstRender)
     {
         await JSRuntime.InvokeVoidAsync("toDataTable");
+    }
+
+    public void Dispose()
+    {
+        JSRuntime.InvokeVoidAsync("removeDataTable");
     }
 }

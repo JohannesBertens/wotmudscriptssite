@@ -6,6 +6,12 @@
 
 <div class="main">
     <div class="top-row px-4">
+        <select @onchange=@ChangeCharacter>
+            @foreach (var character in AllCharacters)
+            {
+                <option value=@character>@character</option>
+            }
+        </select>
         <a href="https://docs.microsoft.com/aspnet/" target="_blank">About</a>
     </div>
 
@@ -13,3 +19,11 @@
         @Body
     </div>
 </div>
+
+@code{
+    string[] AllCharacters = new[] { "Asandra", "Mantas" };
+    void ChangeCharacter(ChangeEventArgs e)
+    {
+        // SOMETHING TO DO HERE
+    }
+}
