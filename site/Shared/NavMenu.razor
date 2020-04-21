@@ -13,19 +13,34 @@
             </NavLink>
         </li>
         <li class="nav-item px-3 dropdown">
-            <NavLink class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" @onclick="()=>expandSubNav = !expandSubNav">
+            <NavLink class="nav-link dropdown-toggle" href="#scripts" id="navbarDropdownScripts" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" @onclick="()=>expandScriptMenu = !expandScriptMenu">
                 <span class="oi oi-code" aria-hidden="true"></span> Scripts for Mudlet
             </NavLink>
-            <div aria-labelledby="navbarDropdown" style="display: @NavBarDropdownCssClass">
-                <NavLink class="dropdown-item" href="scripts/gate">
-                    <span class="oi oi-map" aria-hidden="true"></span> Gate
-                </NavLink>
+            <div aria-labelledby="navbarDropdown" style="display: @NavBarDropdownCssScripts">
                 <NavLink class="dropdown-item" href="scripts/storage">
                     <span class="oi oi-box" aria-hidden="true"></span> Storage
                 </NavLink>
-                <div class="dropdown-divider"></div>
+                <NavLink class="dropdown-item" href="scripts/gate">
+                    <span class="oi oi-map" aria-hidden="true"></span> Gate
+                </NavLink>
                 <NavLink class="dropdown-item" href="scripts/bank">
                     <span class="oi oi-dollar" aria-hidden="true"></span> Bank
+                </NavLink>
+            </div>
+        </li>
+        <li class="nav-item px-3 dropdown">
+            <NavLink class="nav-link dropdown-toggle" href="#chars" id="navbarDropdownChars" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" @onclick="()=>expandCharacterMenu = !expandCharacterMenu">
+                <span class="oi oi-info" aria-hidden="true"></span> Character info
+            </NavLink>
+            <div aria-labelledby="navbarDropdown" style="display: @NavBarDropdownCssCharacters">
+                <NavLink class="dropdown-item" href="chars/storage">
+                    <span class="oi oi-box" aria-hidden="true"></span> Storage
+                </NavLink>
+                <NavLink class="dropdown-item" href="chars/equipment">
+                    <span class="oi oi-shield" aria-hidden="true"></span> Equipment
+                </NavLink>
+                <NavLink class="dropdown-item" href="chars/stats">
+                    <span class="oi oi-bar-chart" aria-hidden="true"></span> Stats, Score and Bank
                 </NavLink>
             </div>
         </li>
@@ -35,10 +50,12 @@
 @code {
     private bool collapseNavMenu = true;
 
-    private bool expandSubNav = false;
+    private bool expandScriptMenu = false;
+    private bool expandCharacterMenu = false;
 
     private string NavMenuCssClass => collapseNavMenu ? "collapse" : null;
-    private string NavBarDropdownCssClass => expandSubNav ? "block": "none";
+    private string NavBarDropdownCssScripts => expandScriptMenu ? "block": "none";
+    private string NavBarDropdownCssCharacters => expandCharacterMenu ? "block" : "none";
 
     private void ToggleNavMenu()
     {
