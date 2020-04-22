@@ -26,8 +26,8 @@ namespace site.Data
                 .AddEnvironmentVariables() // DOES NOT WORK in Azure App Service Container?
                 .Build();
 
-            var EndpointUri = config["CosmosEndPointUri"] ?? Configuration["CosmosEndPointUri"];
-            var PrimaryKey = config["CosmosPrimaryKey"] ?? Configuration["CosmosPrimaryKey"];
+            var EndpointUri = config["APPSETTING_CosmosEndpointUri"];// ?? Configuration["APPSETTING_CosmosPrimaryKey"];
+            var PrimaryKey = config["APPSETTING_CosmosPrimaryKey"];// ?? Configuration["APPSETTING_CosmosPrimaryKey"];
 
             Console.WriteLine($"Got {Configuration.GetChildren().Count()} children");
             foreach (var child in Configuration.GetChildren())
