@@ -2,12 +2,17 @@
 using site.Data;
 using System;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Components;
+
 
 namespace site.Pages.Chars
 {
     public partial class Storage: IDisposable
     {
         private RentItem[] rentItems;
+
+        [Inject]
+        public IJSRuntime JSRuntime { get; set; }
 
     protected override async Task OnInitializedAsync()
         {
