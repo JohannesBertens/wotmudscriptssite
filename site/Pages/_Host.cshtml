@@ -16,11 +16,11 @@
     <link rel="stylesheet"  href="//cdn.datatables.net/1.10.20/css/dataTables.bootstrap4.min.css" />
     <link href="css/site.css" rel="stylesheet" />
     <script>
-        window.toDataTable = () => {
-            $('#dataTable').DataTable();
+        window.toDataTable = (table) => {
+            $(table).DataTable();
         };
-        window.removeDataTable = () => {
-            $('#dataTable').DataTable().destroy();;
+        window.removeDataTable = (table) => {
+            $(table).DataTable().destroy();;
         };
 
     </script>

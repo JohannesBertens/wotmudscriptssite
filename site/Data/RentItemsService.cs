@@ -10,7 +10,7 @@ namespace site.Data
 {
     public class RentItemsService
     {
-        public static async Task<RentItem[]> GetRentItemsAsync(string character)
+        public static async Task<RentItem[]> GetRentItemsAsync()
         {
             var config = new ConfigurationBuilder()
                 .SetBasePath(AppContext.BaseDirectory)
@@ -28,7 +28,7 @@ namespace site.Data
             var container = cosmosClient.GetContainer(databaseId, containerId);
             Console.WriteLine($"Got Container: {container.Id}\n");
 
-            var queryDefinition = new QueryDefinition($"SELECT * FROM c WHERE c.character = '{character}'");
+            var queryDefinition = new QueryDefinition($"SELECT * FROM c");
             var rentItemList = new List<RentItem>();
             await foreach (JsonElement item in container.GetItemQueryIterator<JsonElement>(queryDefinition))
             {
