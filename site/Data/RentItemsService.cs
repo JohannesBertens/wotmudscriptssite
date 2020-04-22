@@ -1,7 +1,6 @@
 ﻿using Azure.Cosmos;
 using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Text.Json;
 using System.Threading.Tasks;
 using Newtonsoft.Json;
@@ -11,33 +10,19 @@ namespace site.Data
 {
     public class RentItemsService
     {
-        public RentItemsService(IConfiguration configuration)
-        {
-            Configuration = configuration;
-        }
-
-        public IConfiguration Configuration { get; }
-
-        public async Task<RentItem[]> GetRentItemsAsync()
+        public static async Task<RentItem[]> GetRentItemsAsync()
         {
             var config = new ConfigurationBuilder()
                 .SetBasePath(AppContext.BaseDirectory)
                 .AddJsonFile("local.settings.json", optional: true, reloadOnChange: true)
-                .AddEnvironmentVariables() // DOES NOT WORK in Azure App Service Container?
+                .AddEnvironmentVariables() 
                 .Build();
 
-            var EndpointUri = config["APPSETTING_CosmosEndpointUri"];// ?? Configuration["APPSETTING_CosmosPrimaryKey"];
-            var PrimaryKey = config["APPSETTING_CosmosPrimaryKey"];// ?? Configuration["APPSETTING_CosmosPrimaryKey"];
-
-            Console.WriteLine($"Got {Configuration.GetChildren().Count()} children");
-            foreach (var child in Configuration.GetChildren())
-            {
-                Console.WriteLine($"Got child: {child.Key} with value {child.Value}");
-            }
+            var EndpointUri = config["APPSETTING_CosmosEndpointUri"];
+            var PrimaryKey = config["APPSETTING_CosmosPrimaryKey"];
             
             var databaseId = "rentstorage";
             var containerId = "rentstorage";
-
 
             var cosmosClient = new CosmosClient(EndpointUri, PrimaryKey,
                 new CosmosClientOptions() {ApplicationName = "CosmosDBDotnetQuickstart"});
