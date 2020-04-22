@@ -1,6 +1,7 @@
 ﻿@page "/chars/stats"
+@inherits Fluxor.Blazor.Web.Components.FluxorComponent
 <h1>Stats, Score and Bank</h1>
 
 <p>This script shows more info on your character!</p>
-<h3>Showing stats for SOMEONE</h3>
+<h3>Showing stats for @SelectedCharacterState.Value.SelectedCharacter</h3>
 

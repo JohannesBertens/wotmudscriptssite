@@ -6,7 +6,7 @@
 
 <div class="main">
     <div class="top-row px-4">
-        <select @onchange=@ChangeCharacter>
+        <select @onchange=@ChangeSelectedCharacter>
             @foreach (var character in AllCharacters)
             {
                 <option value=@character>@character</option>
@@ -19,11 +19,3 @@
         @Body
     </div>
 </div>
-
-@code{
-    string[] AllCharacters = new[] { "Asandra", "Mantas" };
-    void ChangeCharacter(ChangeEventArgs e)
-    {
-        // SOMETHING TO DO HERE
-    }
-}
