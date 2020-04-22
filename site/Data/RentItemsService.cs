@@ -1,6 +1,7 @@
 ﻿using Azure.Cosmos;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text.Json;
 using System.Threading.Tasks;
 using Newtonsoft.Json;
@@ -27,6 +28,13 @@ namespace site.Data
 
             var EndpointUri = config["CosmosEndPointUri"] ?? Configuration["CosmosEndPointUri"];
             var PrimaryKey = config["CosmosPrimaryKey"] ?? Configuration["CosmosPrimaryKey"];
+
+            Console.WriteLine($"Got {Configuration.GetChildren().Count()} children");
+            foreach (var child in Configuration.GetChildren())
+            {
+                Console.WriteLine($"Got child: {child.Key} with value {child.Value}");
+            }
+            
             var databaseId = "rentstorage";
             var containerId = "rentstorage";
 
