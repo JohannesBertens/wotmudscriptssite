@@ -10,21 +10,29 @@ namespace site.Data
 {
     public class RentItemsService
     {
-        public static async Task<RentItem[]> GetRentItemsAsync()
+        public RentItemsService(IConfiguration configuration)
+        {
+            Configuration = configuration;
+        }
+
+        public IConfiguration Configuration { get; }
+
+        public async Task<RentItem[]> GetRentItemsAsync()
         {
             var config = new ConfigurationBuilder()
                 .SetBasePath(AppContext.BaseDirectory)
                 .AddJsonFile("local.settings.json", optional: true, reloadOnChange: true)
-                .AddEnvironmentVariables()
+                .AddEnvironmentVariables() // DOES NOT WORK in Azure App Service Container?
                 .Build();
 
-            var EndpointUri = config["CosmosEndPointUri"];
-            var PrimaryKey = config["CosmosPrimaryKey"];
+            var EndpointUri = config["CosmosEndPointUri"] ?? Configuration["CosmosEndPointUri"];
+            var PrimaryKey = config["CosmosPrimaryKey"] ?? Configuration["CosmosPrimaryKey"];
             var databaseId = "rentstorage";
             var containerId = "rentstorage";
 
 
-            var cosmosClient = new CosmosClient(EndpointUri, PrimaryKey, new CosmosClientOptions() {ApplicationName = "CosmosDBDotnetQuickstart"});
+            var cosmosClient = new CosmosClient(EndpointUri, PrimaryKey,
+                new CosmosClientOptions() {ApplicationName = "CosmosDBDotnetQuickstart"});
             var container = cosmosClient.GetContainer(databaseId, containerId);
             Console.WriteLine($"Got Container: {container.Id}\n");
 
