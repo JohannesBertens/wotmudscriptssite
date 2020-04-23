@@ -3,7 +3,7 @@ using site.Data;
 using System;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Components;
-
+using Microsoft.AspNetCore.Components.Authorization;
 
 namespace site.Pages.Chars
 {
@@ -14,9 +14,19 @@ namespace site.Pages.Chars
         [Inject]
         public IJSRuntime JSRuntime { get; set; }
 
-    protected override async Task OnInitializedAsync()
+
+        [CascadingParameter]
+        private Task<AuthenticationState> authenticationStateTask { get; set; }
+
+        protected override async Task OnInitializedAsync()
         {
-            rentItems = await RentItemsService.GetRentItemsAsync();
+            var user = (await authenticationStateTask).User;
+
+            if (user.Identity.IsAuthenticated)
+            {
+                // Perform an action only available to authenticated (signed-in) users.
+                rentItems = await RentItemsService.GetRentItemsAsync();
+            }
         }
 
         protected override async Task OnAfterRenderAsync(bool firstRender)

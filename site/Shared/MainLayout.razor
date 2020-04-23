@@ -6,13 +6,17 @@
 
 <div class="main">
     <div class="top-row px-4">
-        <select @onchange=@ChangeSelectedCharacter>
-            @foreach (var character in AllCharacters)
-            {
-                <option value=@character>@character</option>
-            }
-        </select>
-        <a href="https://docs.microsoft.com/aspnet/" target="_blank">About</a>
+        <AuthorizeView>
+            <Authorized>
+                <select @onchange=@ChangeSelectedCharacter>
+                    @foreach (var character in AllCharacters)
+                    {
+                        <option value=@character>@character</option>
+                    }
+                </select>
+            </Authorized>
+        </AuthorizeView>
+        <LoginDisplay />
     </div>
 
     <div class="content px-4">
