@@ -28,7 +28,7 @@ namespace site
             services.AddDbContext<ApplicationDbContext>(options =>
                 options.UseSqlServer(
                     config.GetConnectionString("DefaultConnection")));
-            services.AddDefaultIdentity<IdentityUser>(options =>
+            services.AddDefaultIdentity<ApplicationUser>(options =>
                 {
                     options.SignIn.RequireConfirmedPhoneNumber = false;
                     options.SignIn.RequireConfirmedAccount = false;
