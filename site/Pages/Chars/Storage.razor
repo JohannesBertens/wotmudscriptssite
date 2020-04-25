@@ -6,7 +6,7 @@
     <Authorized>
 
         <p>This is all your stuff in rent storage.</p>
-        @if (rentItems == null)
+        @if (RentItems == null)
         {
             <p><em>Loading... hold tight!</em></p>
         }
@@ -22,7 +22,7 @@
                     </tr>
                 </thead>
                 <tbody>
-                    @foreach (var rentItem in rentItems)
+                    @foreach (var rentItem in RentItems)
                     {
                         <tr>
                             <td>@rentItem.city</td>
