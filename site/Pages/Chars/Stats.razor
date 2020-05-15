@@ -2,6 +2,58 @@
 @inherits Fluxor.Blazor.Web.Components.FluxorComponent
 <h1>Stats, Score and Bank</h1>
 
-<p>This script shows more info on your character!</p>
-<h3>Showing stats for @SelectedCharacterState.Value.SelectedCharacter</h3>
+<p>This script shows more info on your characters!</p>
+<AuthorizeView>
+    <Authorized>
+        @if (CharacterData == null)
+        {
+            <p><em>Loading... hold tight!</em></p>
+        }
+        else
+        {
+    <div class="row">
 
+        <!-- List group -->
+        <div class="list-group col-4" id="myList" role="tablist">
+            @for (var i = 0; i < CharacterData.Length; i++)
+            {
+            var curChar = CharacterData[i];
+            <a class="list-group-item list-group-item-action 
+               @(curChar.Race == "human" ? "list-group-item-primary" : string.Empty)
+               @(curChar.Race == "trolloc" ? "list-group-item-danger" : string.Empty)
+               @(curChar.Race == "seanchan" ? "list-group-item-warning" : string.Empty)
+               @(i == 0 ? "active": string.Empty)"
+               data-toggle="list" href="#@curChar.Character" role="tab">
+                @curChar.Character
+                (@curChar.Stats.STR @curChar.Stats.INT @curChar.Stats.WIL @curChar.Stats.DEX @curChar.Stats.CON)
+                @curChar.Sex @curChar.Class
+            </a>
+               
+            }
+        </div>
+
+                <!-- Tab panes -->
+        <div class="tab-content col-8">
+            @for (var i = 0; i < CharacterData.Length; i++)
+            {
+                var curChar = CharacterData[i];
+            <div class="tab-pane @(i == 0 ? "active": string.Empty)" id="@curChar.Character" role="tabpanel">
+                <div class="card">
+                    <h5 class="card-header">@curChar.Character</h5>
+                    <div class="card-body">
+                        <h5 class="card-title">Special title treatment</h5>
+                        <p class="card-text">With supporting text below as a natural lead-in to additional content.</p>
+                        <a href="#" class="btn btn-primary">Go somewhere</a>
+                    </div>
+                </div>
+            </div>
+
+            }
+        </div>
+    </div>
+                }
+            </Authorized>
+            <NotAuthorized>
+                <p>You need to <a href="Identity/Account/Login">Log in</a> to see your character stats.</p>
+            </NotAuthorized>
+        </AuthorizeView>
